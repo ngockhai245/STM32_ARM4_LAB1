@@ -91,8 +91,45 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int counter = 5;
+  int status = 0;
+  HAL_GPIO_WritePin(GPIOA, DEBUG_LED_Pin|OUTPUT_Y0_Pin|OUTPUT_Y1_Pin, 0);
   while (1)
   {
+//	  DEBUG_LED = red_led_5s;
+//	  OUTPUT_Y0 = green_led_3s;
+//	  OUTPUT_Y1 = yellow_led_1s;
+	  if (status == 0){
+		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 1);
+		  HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
+		  HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
+		  t_counter--;
+		  if (counter <= 0){
+			  counter = 3;
+			  status = 1;
+		  }
+	  }
+	  else if (status == 1){
+		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 0);
+		  HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 1);
+		  HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 0);
+		  counter--;
+		  if (counter <= 0){
+			  counter = 1;
+			  status = 2;
+		  }
+	  }
+	  else {
+		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 0);
+		  HAL_GPIO_WritePin(OUTPUT_Y0_GPIO_Port, OUTPUT_Y0_Pin, 0);
+		  HAL_GPIO_WritePin(OUTPUT_Y1_GPIO_Port, OUTPUT_Y1_Pin, 1);
+		  t_counter--;
+		  if (counter <= 0){
+			  counter = 5;
+			  status = 0;
+		  }
+	  }
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
