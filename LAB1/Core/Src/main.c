@@ -91,8 +91,27 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int counter = 2;
+  int debug_led_status = 1;
   while (1)
   {
+	  if (debug_led_status == 1){
+		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 1);
+		  counter--;
+		  if (counter <= 0){
+			  debug_led_status = 0;
+			  counter = 4;
+		  }
+	  }
+	  else {
+		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, 0);
+		  counter--;
+		  if (counter <= 0){
+			  debug_led_status = 1;
+			  counter = 2;
+		  }
+	  }
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
